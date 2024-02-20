@@ -7,7 +7,7 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app/index.js\" ",
     "start": "node dist/app/index.js",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "ts-node src/seed/seed-database.ts"
   },
   "repository": {
     "type": "git",
