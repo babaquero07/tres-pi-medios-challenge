@@ -12,3 +12,43 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Roles {
+  id   String @id @default(uuid())
+  name String
+
+  Users Users[]
+}
+
+model Users {
+  id        String @id @default(uuid())
+  document  String
+  name      String
+  last_name String
+
+  roles_id String
+  Roles    Roles  @relation(fields: [roles_id], references: [id])
+
+  Sales Sales[]
+}
+
+model Sales {
+  id      String   @id @default(uuid())
+  qty     Int
+  sale_at DateTime @default(now())
+
+  users_id String
+  Users    Users  @relation(fields: [users_id], references: [id])
+
+  products_id String
+  Products    Products @relation(fields: [products_id], references: [id])
+}
+
+model Products {
+  id          String @id @default(uuid())
+  name        String
+  price       Int
+  description String
+
+  Sales Sales[]
+}
