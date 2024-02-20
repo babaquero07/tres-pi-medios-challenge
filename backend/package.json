@@ -2,10 +2,10 @@
   "name": "tres-pi-medios-challenge",
   "version": "1.0.0",
   "description": "prueba tecnica - backend",
-  "main": "index.js",
+  "main": "dist/app/index.js",
   "scripts": {
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\" ",
-    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app/index.js\" ",
+    "start": "node dist/app/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
