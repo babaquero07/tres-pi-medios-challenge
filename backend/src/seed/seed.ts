@@ -31,4 +31,14 @@ export const initialData = {
       price: 1800,
     },
   ],
+  roles: {
+    id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
+    name: "admin",
+  },
+  users: {
+    document: "123456789",
+    name: "Alexander",
+    last_name: "Baquero",
+    roles_id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
+  },
 };
