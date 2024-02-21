@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "847d8cd3-929f-4479-a05c-aefcbba10b35",
+		"name": "tres-pi-medios-challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21375952"
+	},
+	"item": [
+		{
+			"name": "sales",
+			"item": [
+				{
+					"name": "new-sale",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "65cf95f7-61a6-4624-ab66-7b9eb0681c64",
+								"description": "user id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products_id\": \"efbff7f6-6374-4c2f-9c96-3611c65068ba\",\r\n    \"qty\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/new-sale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								"new-sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-sale",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "user id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products_id\": \"c3f25f98-c5c3-4a00-b550-f716ae36b25f\",\r\n    \"qty\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/4ef8c62b-f07d-497b-ad58-c2821b7b0f26",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								"4ef8c62b-f07d-497b-ad58-c2821b7b0f26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-sale",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/4ef8c62b-f07d-497b-ad58-c2821b7b0f26",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								"4ef8c62b-f07d-497b-ad58-c2821b7b0f26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-daily-report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "65cf95f7-61a6-4624-ab66-7b9eb0681c64",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/daily-report",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								"daily-report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-monthly-report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/monthly-report",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								"monthly-report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sales/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sales",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "new-user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roles_id\": \"ff3d1556-1023-4a49-aaff-31de0bd09f32\",\r\n    \"name\": \"Juan\",\r\n    \"last_name\": \"Perez\",\r\n    \"document\": \"10124586\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/new-user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"new-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-user-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1d28c486-008e-4e65-ab24-e7aca9801683",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1d28c486-008e-4e65-ab24-e7aca9801683"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user-by-id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"fcc5ee3e-f846-4561-8616-813c2ed92bb7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user-role",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"employee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/user-role/8dad39ca-8869-4300-bb50-8de1a69d240a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"user-role",
+								"8dad39ca-8869-4300-bb50-8de1a69d240a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "new-product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"De todito BBQ\",\r\n    \"price\": 2500,\r\n    \"description\": \"DE TODITO BBQ 250GR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/new-product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"new-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roles",
+			"item": [
+				{
+					"name": "new-role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth",
+								"value": "fcc5ee3e-f846-4561-8616-813c2ed92bb7",
+								"description": "User id",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"provider\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/roles/new-role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"roles",
+								"new-role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
