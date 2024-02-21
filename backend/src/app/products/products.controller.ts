@@ -49,4 +49,19 @@ productsRouter.post(
   }
 );
 
+productsRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const products = await productsService.getAllProducts();
+
+    if (!products)
+      return res.status(404).json({ ok: false, error: "No products found" });
+
+    return res.send({ ok: true, products });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({ ok: false, error: "Error getting products" });
+  }
+});
+
 export default productsRouter;

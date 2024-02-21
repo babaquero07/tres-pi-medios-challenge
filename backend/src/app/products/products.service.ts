@@ -18,4 +18,16 @@ export class ProductsService {
       throw new Error("Error creating product");
     }
   }
+
+  async getAllProducts() {
+    try {
+      const products = await prisma.products.findMany();
+
+      return products;
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("Error getting products");
+    }
+  }
 }
