@@ -78,4 +78,86 @@ export class SalesService {
       throw new Error("Error getting sales");
     }
   }
+
+  async getSalesReportByDay() {
+    try {
+      const salesReport = await prisma.sales.findMany({
+        where: {
+          sale_at: {
+            gte: new Date(new Date().setHours(0, 0, 0, 0)),
+            lt: new Date(new Date().setHours(23, 59, 59, 999)),
+          },
+        },
+        include: {
+          Products: {
+            select: {
+              name: true,
+              price: true,
+            },
+          },
+        },
+      });
+
+      if (salesReport.length > 0) {
+        const total = salesReport.reduce((acc, sale) => {
+          return acc + sale.Products.price * sale.qty;
+        }, 0);
+
+        return {
+          total,
+          sales: salesReport,
+        };
+      }
+
+      return {
+        total: 0,
+        sales: null,
+      };
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("Error getting sales report by day");
+    }
+  }
+
+  async getSalesReportByMonth() {
+    try {
+      const salesReport = await prisma.sales.findMany({
+        where: {
+          sale_at: {
+            gte: new Date(new Date().setDate(1)),
+            lt: new Date(new Date().setDate(31)),
+          },
+        },
+        include: {
+          Products: {
+            select: {
+              name: true,
+              price: true,
+            },
+          },
+        },
+      });
+
+      if (salesReport.length > 0) {
+        const total = salesReport.reduce((acc, sale) => {
+          return acc + sale.Products.price * sale.qty;
+        }, 0);
+
+        return {
+          total,
+          sales: salesReport,
+        };
+      }
+
+      return {
+        total: 0,
+        sales: null,
+      };
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("Error getting sales report by month");
+    }
+  }
 }

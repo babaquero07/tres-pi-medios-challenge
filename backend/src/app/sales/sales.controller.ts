@@ -126,4 +126,42 @@ salesRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
+salesRouter.get(
+  "/daily-report",
+  verifyAuthHeader,
+  checkAdminAuthorization,
+  async (req: Request, res: Response) => {
+    try {
+      const report = await salesService.getSalesReportByDay();
+
+      return res.send({ ok: true, report });
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(500)
+        .json({ ok: false, error: "Internal server error" });
+    }
+  }
+);
+
+salesRouter.get(
+  "/monthly-report",
+  verifyAuthHeader,
+  checkAdminAuthorization,
+  async (req: Request, res: Response) => {
+    try {
+      const report = await salesService.getSalesReportByMonth();
+
+      return res.send({ ok: true, report });
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(500)
+        .json({ ok: false, error: "Internal server error" });
+    }
+  }
+);
+
 export default salesRouter;
