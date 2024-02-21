@@ -51,4 +51,31 @@ export class SalesService {
       throw new Error(`Error deleting sale with id: ${saleId}`);
     }
   }
+
+  async getSales() {
+    try {
+      const sales = await prisma.sales.findMany({
+        include: {
+          Products: true,
+          Users: {
+            select: {
+              name: true,
+              last_name: true,
+
+              Roles: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return sales;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error getting sales");
+    }
+  }
 }

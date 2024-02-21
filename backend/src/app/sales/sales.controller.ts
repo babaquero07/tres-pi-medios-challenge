@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 
+import { verifyAuthHeader } from "../../utils/verify-auth-header";
 import { validate, saleValidator } from "../../utils/validators";
 
 import { UsersService } from "../users/users.service";
@@ -10,6 +11,7 @@ const salesService = new SalesService();
 
 salesRouter.post(
   "/new-sale",
+  verifyAuthHeader,
   validate(saleValidator),
   async (req: Request, res: Response) => {
     try {
@@ -44,6 +46,7 @@ salesRouter.post(
 
 salesRouter.put(
   "/:saleId",
+  verifyAuthHeader,
   validate(saleValidator),
   async (req: Request, res: Response) => {
     try {
@@ -90,32 +93,56 @@ salesRouter.put(
   }
 );
 
-salesRouter.delete("/:saleId", async (req: Request, res: Response) => {
-  try {
-    const { saleId } = req.params;
-    if (!saleId) {
-      return res.status(400).json({ ok: false, error: "saleId is required!" });
-    }
+salesRouter.delete(
+  "/:saleId",
+  verifyAuthHeader,
+  async (req: Request, res: Response) => {
+    try {
+      const { saleId } = req.params;
+      if (!saleId) {
+        return res
+          .status(400)
+          .json({ ok: false, error: "saleId is required!" });
+      }
 
-    const userId = req.get("Auth");
-    const user = await UsersService.getUserById(userId);
-    if (!user) {
-      return res.status(404).json({ ok: false, error: "User not found" });
-    }
+      const userId = req.get("Auth");
+      const user = await UsersService.getUserById(userId);
+      if (!user) {
+        return res.status(404).json({ ok: false, error: "User not found" });
+      }
 
-    if (user.Roles.name !== "admin") {
-      return res.status(403).json({
-        ok: false,
-        error: "You are not authorized to perform this action",
+      if (user.Roles.name !== "admin") {
+        return res.status(403).json({
+          ok: false,
+          error: "You are not authorized to perform this action",
+        });
+      }
+
+      await salesService.deleteSale(saleId);
+
+      return res.send({
+        ok: true,
+        message: "Sale deleted successfully",
       });
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(500)
+        .json({ ok: false, error: "Internal server error" });
+    }
+  }
+);
+
+salesRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const sales = await salesService.getSales();
+
+    if (!sales) {
+      return res.status(404).json({ ok: false, error: "Sales not found" });
     }
 
-    await salesService.deleteSale(saleId);
-
-    return res.send({
-      ok: true,
-      message: "Sale deleted successfully",
-    });
+    return res.send({ ok: true, sales });
   } catch (error) {
     console.log(error);
 
