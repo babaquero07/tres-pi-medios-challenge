@@ -1,4 +1,7 @@
-import { Request, Response, Router } from "express";
+import { Request, Response, NextFunction, Router } from "express";
+
+import { validate, userValidator } from "../../utils/validators";
+
 import { UsersService } from "./users.service";
 
 const usersRouter = Router();
@@ -22,5 +25,34 @@ usersRouter.get("/:userId", async (req: Request, res: Response) => {
     return res.status(500).json({ ok: false, error: "Internal server error" });
   }
 });
+
+usersRouter.post(
+  "/new-user",
+  validate(userValidator),
+  async (req: Request, res: Response) => {
+    try {
+      const { roles_id, name, last_name, document } = req.body;
+
+      const newUser = await UsersService.createUser(
+        roles_id,
+        name,
+        last_name,
+        document
+      );
+
+      return res.send({
+        ok: true,
+        message: "User created successfully",
+        newUser,
+      });
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(500)
+        .json({ ok: false, error: "Internal server error" });
+    }
+  }
+);
 
 export default usersRouter;

@@ -35,3 +35,22 @@ export const productValidator = [
   body("price").notEmpty().withMessage("price is required").trim().isNumeric(),
   body("description").notEmpty().withMessage("description is required").trim(),
 ];
+
+export const userValidator = [
+  body("roles_id")
+    .notEmpty()
+    .withMessage("roles_id is required")
+    .trim()
+    .isString(),
+  body("name").notEmpty().withMessage("name is required").trim().isString(),
+  body("last_name")
+    .notEmpty()
+    .withMessage("last_name is required")
+    .trim()
+    .isString(),
+  body("document")
+    .notEmpty()
+    .withMessage("document is required")
+    .trim()
+    .isString(),
+];
