@@ -31,14 +31,28 @@ export const initialData = {
       price: 1800,
     },
   ],
-  roles: {
-    id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
-    name: "admin",
-  },
-  users: {
-    document: "123456789",
-    name: "Alexander",
-    last_name: "Baquero",
-    roles_id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
-  },
+  roles: [
+    {
+      id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
+      name: "admin",
+    },
+    {
+      id: "b4f0d0e5-2b9e-4e9a-bc9f-8e3b7e5a2c3b",
+      name: "employee",
+    },
+  ],
+  users: [
+    {
+      document: "123456789",
+      name: "Alexander",
+      last_name: "Baquero",
+      roles_id: "2f932357-43d4-4806-8882-7e13e9bb1ef9",
+    },
+    {
+      document: "123456788",
+      name: "Juan",
+      last_name: "Perez",
+      roles_id: "b4f0d0e5-2b9e-4e9a-bc9f-8e3b7e5a2c3b",
+    },
+  ],
 };

@@ -4,9 +4,10 @@ import { initialData } from "./seed";
 
 async function main() {
   // Delete all data
-  await prisma.products.deleteMany({});
-  await prisma.roles.deleteMany({});
+  await prisma.sales.deleteMany({});
   await prisma.users.deleteMany({});
+  await prisma.roles.deleteMany({});
+  await prisma.products.deleteMany({});
 
   // Create products
   await prisma.products.createMany({
@@ -14,12 +15,12 @@ async function main() {
   });
 
   // Create role
-  await prisma.roles.create({
+  await prisma.roles.createMany({
     data: initialData.roles,
   });
 
   // Create user
-  await prisma.users.create({
+  await prisma.users.createMany({
     data: initialData.users,
   });
 
