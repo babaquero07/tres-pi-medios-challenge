@@ -13,6 +13,21 @@ export class UsersService {
               name: true,
             },
           },
+          Sales: {
+            select: {
+              id: true,
+              qty: true,
+              sale_at: true,
+
+              Products: {
+                select: {
+                  id: true,
+                  name: true,
+                  price: true,
+                },
+              },
+            },
+          },
         },
       });
 
@@ -45,6 +60,41 @@ export class UsersService {
       console.log(error);
 
       throw new Error("Error creating user");
+    }
+  }
+
+  static async getAllUsers() {
+    try {
+      const users = await prisma.users.findMany({
+        include: {
+          Roles: {
+            select: {
+              name: true,
+            },
+          },
+          Sales: {
+            select: {
+              id: true,
+              qty: true,
+              sale_at: true,
+
+              Products: {
+                select: {
+                  id: true,
+                  name: true,
+                  price: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return users;
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("Error getting all users");
     }
   }
 }
