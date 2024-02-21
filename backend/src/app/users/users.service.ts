@@ -7,6 +7,13 @@ export class UsersService {
         where: {
           id: userId,
         },
+        include: {
+          Roles: {
+            select: {
+              name: true,
+            },
+          },
+        },
       });
 
       return user;
