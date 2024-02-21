@@ -54,3 +54,13 @@ export const userValidator = [
     .trim()
     .isString(),
 ];
+
+export const updateUserRolesValidator = [
+  body("role")
+    .notEmpty()
+    .withMessage("role is required")
+    .trim()
+    .isString()
+    .isIn(["admin", "employee"])
+    .withMessage("role must be admin or employee"),
+];

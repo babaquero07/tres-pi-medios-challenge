@@ -97,4 +97,62 @@ export class UsersService {
       throw new Error("Error getting all users");
     }
   }
+
+  static async deleteUserById(userId: string) {
+    try {
+      const user = await prisma.users.delete({
+        where: {
+          id: userId,
+        },
+      });
+
+      return user ?? null;
+    } catch (error) {
+      console.log(error);
+
+      throw new Error(`Error deleting user by id ${userId}`);
+    }
+  }
+
+  static async deleteAllUsers() {
+    try {
+      await prisma.users.deleteMany();
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("Error deleting all users");
+    }
+  }
+
+  static async updateUserRole(userId: string, role: string) {
+    try {
+      const roleInfo = await prisma.roles.findFirst({
+        where: {
+          name: role,
+        },
+      });
+
+      const updatedUser = await prisma.users.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          roles_id: roleInfo.id,
+        },
+        include: {
+          Roles: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      return updatedUser;
+    } catch (error) {
+      console.log(error);
+
+      throw new Error(`Error updating user roles by id ${userId}`);
+    }
+  }
 }
