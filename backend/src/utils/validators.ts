@@ -29,3 +29,9 @@ export const saleValidator = [
     .isString(),
   body("qty").notEmpty().withMessage("qty is required").trim().isNumeric(),
 ];
+
+export const productValidator = [
+  body("name").notEmpty().withMessage("name is required").trim().isString(),
+  body("price").notEmpty().withMessage("price is required").trim().isNumeric(),
+  body("description").notEmpty().withMessage("description is required").trim(),
+];
