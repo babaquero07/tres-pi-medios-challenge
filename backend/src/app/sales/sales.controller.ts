@@ -43,7 +43,7 @@ salesRouter.post(
 );
 
 salesRouter.put(
-  "/update-sale/:saleId",
+  "/:saleId",
   validate(saleValidator),
   async (req: Request, res: Response) => {
     try {
@@ -89,5 +89,38 @@ salesRouter.put(
     }
   }
 );
+
+salesRouter.delete("/:saleId", async (req: Request, res: Response) => {
+  try {
+    const { saleId } = req.params;
+    if (!saleId) {
+      return res.status(400).json({ ok: false, error: "saleId is required!" });
+    }
+
+    const userId = req.get("Auth");
+    const user = await UsersService.getUserById(userId);
+    if (!user) {
+      return res.status(404).json({ ok: false, error: "User not found" });
+    }
+
+    if (user.Roles.name !== "admin") {
+      return res.status(403).json({
+        ok: false,
+        error: "You are not authorized to perform this action",
+      });
+    }
+
+    await salesService.deleteSale(saleId);
+
+    return res.send({
+      ok: true,
+      message: "Sale deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({ ok: false, error: "Internal server error" });
+  }
+});
 
 export default salesRouter;

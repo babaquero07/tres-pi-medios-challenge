@@ -37,4 +37,18 @@ export class SalesService {
       throw new Error(`Error updating sale with id: ${saleId}`);
     }
   }
+
+  async deleteSale(saleId: string) {
+    try {
+      await prisma.sales.delete({
+        where: {
+          id: saleId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+
+      throw new Error(`Error deleting sale with id: ${saleId}`);
+    }
+  }
 }
