@@ -64,3 +64,7 @@ export const updateUserRolesValidator = [
     .isIn(["admin", "employee"])
     .withMessage("role must be admin or employee"),
 ];
+
+export const roleValidator = [
+  body("name").notEmpty().withMessage("name is required").trim().isString(),
+];
