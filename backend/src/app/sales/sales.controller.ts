@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 
 import { verifyAuthHeader } from "../../utils/verify-auth-header";
+import checkAdminAuthorization from "../auth/check-admin-authorization";
 import { validate, saleValidator } from "../../utils/validators";
 
 import { UsersService } from "../users/users.service";
@@ -47,6 +48,7 @@ salesRouter.post(
 salesRouter.put(
   "/:saleId",
   verifyAuthHeader,
+  checkAdminAuthorization,
   validate(saleValidator),
   async (req: Request, res: Response) => {
     try {
@@ -58,20 +60,6 @@ salesRouter.put(
       }
 
       const { products_id, qty } = req.body;
-
-      const userId = req.get("Auth");
-      const user = await UsersService.getUserById(userId);
-      if (!user) {
-        return res.status(404).json({ ok: false, error: "User not found" });
-      }
-
-      if (user.Roles.name !== "admin") {
-        return res.status(403).json({
-          ok: false,
-          error: "You are not authorized to perform this action",
-        });
-      }
-
       const updatedSale = await salesService.updateSale(
         saleId,
         products_id,
@@ -96,6 +84,7 @@ salesRouter.put(
 salesRouter.delete(
   "/:saleId",
   verifyAuthHeader,
+  checkAdminAuthorization,
   async (req: Request, res: Response) => {
     try {
       const { saleId } = req.params;
@@ -103,19 +92,6 @@ salesRouter.delete(
         return res
           .status(400)
           .json({ ok: false, error: "saleId is required!" });
-      }
-
-      const userId = req.get("Auth");
-      const user = await UsersService.getUserById(userId);
-      if (!user) {
-        return res.status(404).json({ ok: false, error: "User not found" });
-      }
-
-      if (user.Roles.name !== "admin") {
-        return res.status(403).json({
-          ok: false,
-          error: "You are not authorized to perform this action",
-        });
       }
 
       await salesService.deleteSale(saleId);
